@@ -1,39 +1,33 @@
 CREATE TABLE IF NOT Exists customers (
-    CustID INT GENERATED ALWAYS AS IDENTITY ,
-    Username varchar(20) NOT NULL,
-    Password varchar(20) NOT NULL,
-    F_Name varchar(20) DEFAULT NULL,
-    L_Name varchar(20) DEFAULT NULL,
-    Email varchar(40) NOT NULL UNIQUE ,
-    Address1 TEXT DEFAULT NULL,
-    Address2 TEXT DEFAULT NULL,
-    Address3 TEXT DEFAULT NULL,
-    County varchar(20) DEFAULT NULL,
-    AccountCreated timestamptz DEFAULT now(),
-    PRIMARY KEY (CustID)
+    custID INT GENERATED ALWAYS AS IDENTITY ,
+    first_name varchar(20) DEFAULT NULL,
+    last_name varchar(20) DEFAULT NULL,
+    email varchar(40) NOT NULL UNIQUE ,
+    accountCreated timestamptz DEFAULT now(),
+    PRIMARY KEY (custID)
     );
 
 CREATE TABLE IF NOT EXISTS orders (
-    OrderID INT GENERATED ALWAYS AS IDENTITY,
-    CustID INTEGER REFERENCES customers (CustID) ON DELETE RESTRICT ,
-    OrderDate varchar(10) DEFAULT NULL,
-    PRIMARY KEY (OrderID)
+    orderID INT GENERATED ALWAYS AS IDENTITY,
+    custID INTEGER REFERENCES customers (custID) ON DELETE RESTRICT ,
+    order_date varchar(10) DEFAULT NULL,
+    PRIMARY KEY (orderID)
     );
 
 CREATE TABLE IF NOT EXISTS products (
-    ProdID INT GENERATED ALWAYS AS IDENTITY ,
-    Name TEXT DEFAULT NULL,
-    Description TEXT DEFAULT NULL,
-    Price MONEY DEFAULT 0.00,
-    PRIMARY KEY (ProdID)
+    prodID INT GENERATED ALWAYS AS IDENTITY ,
+    name TEXT DEFAULT NULL,
+    description TEXT DEFAULT NULL,
+    price MONEY DEFAULT 0.00,
+    PRIMARY KEY (prodID)
     );
 
 CREATE TABLE IF NOT EXISTS orders_details (
-    ID INT GENERATED ALWAYS AS IDENTITY,
-    OrderID INTEGER REFERENCES orders (OrderID) ON DELETE CASCADE ,
-    ProdID INTEGER REFERENCES products (ProdID) ON DELETE RESTRICT ,
-    Price MONEY DEFAULT 0.00,
-    Quantity INTEGER DEFAULT NULL,
-    Total MONEY DEFAULT NULL,
+    id INT GENERATED ALWAYS AS IDENTITY,
+    orderID INTEGER REFERENCES orders (orderID) ON DELETE CASCADE ,
+    prodID INTEGER REFERENCES products (prodID) ON DELETE RESTRICT ,
+    price MONEY DEFAULT 0.00,
+    quantity INTEGER DEFAULT NULL,
+    total MONEY DEFAULT NULL,
     PRIMARY KEY (ID)
     );

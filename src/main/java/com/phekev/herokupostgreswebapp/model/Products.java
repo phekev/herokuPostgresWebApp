@@ -1,4 +1,4 @@
-package com.phekev.herokupostgreswebapp.Tables;
+package com.phekev.herokupostgreswebapp.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
